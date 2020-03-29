@@ -62,13 +62,36 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform: rotate(90deg); /* set the degree to 90 (vertical) */
+      transform-origin: 100%;
+      transition: all 0.05s cubic-bezier(0.25, 0.1, 0.18, 2.53);
     }
 
   </style>
 
   <script>
+    const secondHand = document.querySelector('.second-hand');
+    const minHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
 
+    function setDate() {
+      const now = new Date();
 
+      const seconds = now.getSeconds();
+      const secondsDegree = ((seconds / 60) * 360) + 90; // need to add 90deg for vertical
+      secondHand.style.transform = `rotate(${secondsDegree}deg)`;
+
+      const mins = now.getMinutes();
+      const minsDegree = ((mins / 60) * 360) + 90;  // need to add 90deg for vertical
+      minHand.style.transform = `rotate(${minsDegree}deg)`;
+
+      const hours = now.getHours();
+      const hoursDegree = ((hours / 12) * 360) + 90; // need to add 90deg for vertical
+      hourHand.style.transform = `rotate(${hoursDegree}deg)`;
+
+      console.log(`${hours}:${mins}:${seconds}`);
+    }
+    setInterval(setDate, 1000);
   </script>
 </body>
 </html>
